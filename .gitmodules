@@ -1,0 +1,3 @@
+[submodule "mods/rpgmapgen"]
+	path = mods/rpgmapgen
+	url = https://github.com/regulus79/rpgmapgen.git
