@@ -40,6 +40,12 @@ local update_biome_sky = function(player)
 			fog_color = biomedef.fog_color
 		}
 	})
+	-- Lerp based on time of day
+	local light = biomedef.nightlight + (core.time_to_day_night_ratio(core.get_timeofday())) * (biomedef.daylight - biomedef.nightlight)
+	-- and lerp from old to new
+	local old_light = player:get_day_night_ratio() or light
+	core.debug(old_light + 0.2 * (light - old_light))
+	player:override_day_night_ratio(old_light + 0.2 * (light - old_light))
 end
 
 
@@ -49,10 +55,15 @@ core.register_on_joinplayer(function(player)
 	update_biome_sky(player)
 end)
 
+--Spawnpos
+core.register_on_newplayer(function(player)
+	player:set_pos(vector.new(0, 30.5, 0))
+end)
+
 
 
 local update_timer = 0
-local update_interval = 5
+local update_interval = 2
 core.register_globalstep(function(dtime)
 	update_timer = update_timer + dtime
 	if update_timer > update_interval then

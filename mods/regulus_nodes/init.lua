@@ -11,7 +11,7 @@ for i = 1, 5 do
 end
 
 core.register_node("regulus_nodes:stone",{
-	description = "yay2",
+	description = "Stone",
 	tiles = {"regulus_stone1.png"},
 	groups = {stone = 1}
 })
@@ -48,7 +48,7 @@ end
 
 
 core.register_node("regulus_nodes:sand",{
-	description = "yay3",
+	description = "Sand",
 	tiles = {"regulus_sand1.png"},
 	groups = {dirt = 1}
 })

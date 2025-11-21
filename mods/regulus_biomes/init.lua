@@ -18,6 +18,8 @@ core.register_biome({
 	horizon_color = "#e7f0f0",
 	fog_color = "#e7f0f0",
 	fog_distance = 100,
+	daylight = 1,
+	nightlight = 0.2,
 })
 
 
@@ -39,6 +41,8 @@ core.register_biome({
 	horizon_color = "#f9eeae",
 	fog_color = "#f9eeae",
 	fog_distance = 100,
+	daylight = 1,
+	nightlight = 0.2,
 })
 
 
@@ -60,6 +64,8 @@ core.register_biome({
 	horizon_color = "#322f1f",
 	fog_color = "#322f1f",
 	fog_distance = 40,
+	daylight = 0.5,
+	nightlight = 0.2,
 })
 
 
@@ -80,6 +86,8 @@ core.register_biome({
 	horizon_color = "#e7f0f0",
 	fog_color = "#e7f0f0",
 	fog_distance = 100,
+	daylight = 1,
+	nightlight = 0.2,
 })
 
 
@@ -100,4 +108,6 @@ core.register_biome({
 	horizon_color = "#441f24",
 	fog_color = "#441f24",
 	fog_distance = 100,
+	daylight = 1,
+	nightlight = 0.2,
 })

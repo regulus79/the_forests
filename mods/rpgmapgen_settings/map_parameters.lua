@@ -19,8 +19,24 @@ map_parameters.noiseamps = {30, 10, 5, 1}
 -- General map height, before any noise or flat areas are added
 -- Useful for adding a mountain range or ocean at a specific location on the map
 map_parameters.map_height = function(x,z)
-	return 30
+	local south_river = -math.exp(-((z - -250)/50)^2) * 30
+	local north_mountain = math.exp(-((z - 1100)/200)^2) * 200
+	return 30 + south_river + north_mountain
 end
+
+
+
+--- Helper variables
+local grassland_center = vector.new(0,30,0)
+local fork_in_road = vector.new(0,30,150)
+local npc_house = vector.new(100,30,175)
+local backyardforest_center = vector.new(0,30,500)
+local drygrassland_center = vector.new(600,30,700)
+local redforest_center = vector.new(400,30,500)
+local in_front_of_fireflyforest = vector.new(700,30,700)
+local fireflyforest_center = vector.new(900,30,700)
+
+
 
 
 -- Procedurally generated paths from one place to another
@@ -28,36 +44,58 @@ map_parameters.paths = {}
 
 -- Helper for creating long, segmented paths
 local pathdefs = {
-	{ -- Path from start to fireflyforest
+	{ -- Path from start to fork
 		points = {
-			vector.new(0,0,0),
-			vector.new(100,0,-100),
-			vector.new(300,0,-100),
-			vector.new(500,0,100),
+			grassland_center,
+			fork_in_road,
 		},
 		radius = 2,
 		noise = {scale = 20, spread = vector.new(50,50,50)},
 	},
-	{ -- Path from start to backyardforest
+	{ -- Path from fork to npc house
 		points = {
-			vector.new(0,0,0),
-			vector.new(-100,0,100),
+			fork_in_road,
+			npc_house,
 		},
 		radius = 2,
 		noise = {scale = 20, spread = vector.new(50,50,50)},
 	},
-	{ -- Path from backyardforest to redforest
+	{ -- Path from npc house to backyard forest
 		points = {
-			vector.new(-100,0,100),
-			vector.new(200,0,300),
+			npc_house,
+			backyardforest_center,
 		},
 		radius = 2,
 		noise = {scale = 20, spread = vector.new(50,50,50)},
 	},
-	{ -- Path from start down south
+	{ -- Path from backyard forest to redforest
 		points = {
-			vector.new(0,0,0),
-			vector.new(0,0,-300),
+			backyardforest_center,
+			redforest_center,
+		},
+		radius = 2,
+		noise = {scale = 20, spread = vector.new(50,50,50)},
+	},
+	{ -- Path from redforest to drygrassland
+		points = {
+			redforest_center,
+			drygrassland_center,
+		},
+		radius = 2,
+		noise = {scale = 20, spread = vector.new(50,50,50)},
+	},
+	{ -- Path from drygrassland to in front of fireflyforest
+		points = {
+			drygrassland_center,
+			in_front_of_fireflyforest,
+		},
+		radius = 2,
+		noise = {scale = 20, spread = vector.new(50,50,50)},
+	},
+	{ -- Path from in front of fireflyforest to fireflyforest
+		points = {
+			in_front_of_fireflyforest,
+			fireflyforest_center,
 		},
 		radius = 2,
 		noise = {scale = 20, spread = vector.new(50,50,50)},
@@ -82,45 +120,116 @@ end
 -- For use in story-based games which require stable areas for important locations
 map_parameters.level_grounds = {
 	{ -- Starting place
-		pos = vector.new(0,30,0),
+		pos = grassland_center,
 		radius = 10,
 		interpolation_length = 50,
 		node = "regulus_nodes:dirt_with_grass1"
 	},
-	{ -- Fireflyforest place
-		pos = vector.new(500,30,100),
+	{ -- Fork in the road
+		pos = fork_in_road,
 		radius = 10,
 		interpolation_length = 50,
-		node = "regulus_nodes:dirt_with_grass2"
+		node = "regulus_nodes:dirt_with_grass1"
+	},
+	{ -- Npc house
+		pos = npc_house,
+		radius = 10,
+		interpolation_length = 30,
+		node = "regulus_nodes:dirt_with_grass1"
 	},
 	{ -- backyardforest place
-		pos = vector.new(-100,30,100),
+		pos = backyardforest_center,
 		radius = 10,
 		interpolation_length = 50,
 		node = "regulus_nodes:dirt_with_grass4"
 	},
 	{ -- redforest place
-		pos = vector.new(200,30,300),
+		pos = redforest_center,
 		radius = 10,
 		interpolation_length = 50,
 		node = "regulus_nodes:dirt_with_grass5"
 	},
+	{ -- drygrassland place
+		pos = drygrassland_center,
+		radius = 10,
+		interpolation_length = 50,
+		node = "regulus_nodes:dirt_with_grass2"
+	},
+	{ -- place for npc in front of fireflyforest
+		pos = in_front_of_fireflyforest,
+		radius = 1,
+		interpolation_length = 50,
+		node = "regulus_nodes:dirt_with_grass2"
+	},
+	{ -- Fireflyforest place
+		pos = fireflyforest_center,
+		radius = 10,
+		interpolation_length = 50,
+		node = "regulus_nodes:dirt_with_grass3"
+	},
 }
+
+
+local special_nodes = {
+	{-- Scarecrow
+		name = "regulus_npcs:spawner_npc3",
+		pos = grassland_center + vector.new(0, 1, 8),
+	},
+	{ -- Mound at fork
+		name = "regulus_npcs:spawner_npc5",
+		pos = fork_in_road + vector.new(0,1,0),
+	},
+	{ -- idk guy
+		name = "regulus_npcs:spawner_npc1",
+		pos = npc_house + vector.new(0, 1, 0),
+	},
+	{ -- Barrel
+		name = "regulus_containers:barrel1_level_0",
+		pos = npc_house + vector.new(5, 1, 3),
+	},
+	{ -- Barrel
+		name = "regulus_containers:barrel2_level_0",
+		pos = npc_house + vector.new(4, 1, 3),
+	},
+	{ -- Barrel
+		name = "regulus_containers:barrel3_level_0",
+		pos = npc_house + vector.new(3, 1, 2),
+	},
+	{ -- Rock in backyardforest
+		name = "regulus_npcs:spawner_rock",
+		pos = backyardforest_center + vector.new(0, 1, 0),
+	},
+	{ -- Mound near fireflyforest
+		name = "regulus_npcs:spawner_npc2",
+		pos = in_front_of_fireflyforest + vector.new(0, 1, 0),
+	},
+	{-- Other Scarecrow
+		name = "regulus_npcs:spawner_npc4",
+		pos = fireflyforest_center + vector.new(0, 1, 0),
+	},
+}
+
 
 -- Schematics to be spawned at specific locations
 map_parameters.schematics = {
+	-- Some barrels near spawn
+}
+-- Algorithmically populate it based on the npc spawner list
+for _, special_node in pairs(special_nodes) do
+	table.insert(map_parameters.schematics,
 	{
-		pos = vector.new(30,10,0),
+		pos = special_node.pos,
 		-- Just an upper-bound guess at how large the schematic is. This is used to determine whether it might overlap with the mapblock being generated.
 		approx_size = 5,
-		file = core.get_modpath("regulus_nodes") .. "/schematics/bush.mts",
-		-- All the flags and options just like normal schematics
-		rotation = "0",
-		replacements = {},
+		schematic = {
+			size = vector.new(1,1,1),
+			data = {
+				{name = special_node.name},
+			}
+		},
 		force_placement = true,
-		flags = "place_center_x,place_center_z",
-	}
-}
+	})
+end
 
 -- You can also modify the terrain generation based on the slope of the noise
 -- Inspired by https://www.youtube.com/watch?v=gsJHzBTPG0Y
@@ -138,27 +247,27 @@ map_parameters.get_biome_data = function(pos)
 		biome_positions = {
 			{
 				biome_id = core.get_biome_id("grassland"),
-				center = vector.new(0,0,0),
+				center = grassland_center,
 				weight = 1
 			},
 			{
 				biome_id = core.get_biome_id("drygrassland"),
-				center = vector.new(-200,0,600),
+				center = drygrassland_center,
 				weight = 1
 			},
 			{
 				biome_id = core.get_biome_id("fireflyforest"),
-				center = vector.new(500,0,100),
+				center = fireflyforest_center,
 				weight = 1
 			},
 			{
 				biome_id = core.get_biome_id("backyardforest"),
-				center = vector.new(-100,0,100),
+				center = backyardforest_center,
 				weight = 1
 			},
 			{
 				biome_id = core.get_biome_id("redforest"),
-				center = vector.new(200,0,300),
+				center = redforest_center,
 				weight = 1
 			},
 		}
