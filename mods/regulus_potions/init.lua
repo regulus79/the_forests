@@ -88,7 +88,7 @@ core.register_globalstep(function(dtime)
 			end
 			-- Update vignette
 			local alpha = math.floor(math.min(255, 255 * total_amount / 10))
-			local colorVec = regulus_containers.get_solution_color(potion_levels) or vector.new(0,0,0) -- If empty, it will return nil, so default to black (but the alpha is 0, so it will not be visible)
+			local colorVec = regulus_vessels.get_solution_color(potion_levels) or vector.new(0,0,0) -- If empty, it will return nil, so default to black (but the alpha is 0, so it will not be visible)
 			local colorString = core.rgba(colorVec.x, colorVec.y, colorVec.z, alpha)
 			regulus_hud.change_hud_element(player, "potions_vignette", "text", "regulus_vignette.png^[multiply:" .. colorString .. "^[opacity:" .. alpha)
 		end

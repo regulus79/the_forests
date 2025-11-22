@@ -184,15 +184,15 @@ local special_nodes = {
 		pos = npc_house + vector.new(0, 1, 0),
 	},
 	{ -- Barrel
-		name = "regulus_containers:barrel1_level_0",
+		name = "regulus_vessels:barrel1_level_0",
 		pos = npc_house + vector.new(5, 1, 3),
 	},
 	{ -- Barrel
-		name = "regulus_containers:barrel2_level_0",
+		name = "regulus_vessels:barrel2_level_0",
 		pos = npc_house + vector.new(4, 1, 3),
 	},
 	{ -- Barrel
-		name = "regulus_containers:barrel3_level_0",
+		name = "regulus_vessels:barrel3_level_0",
 		pos = npc_house + vector.new(3, 1, 2),
 	},
 	{ -- Rock in backyardforest
