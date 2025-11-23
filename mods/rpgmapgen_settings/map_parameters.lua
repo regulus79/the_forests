@@ -172,7 +172,7 @@ map_parameters.level_grounds = {
 
 local special_nodes = {
 	{-- Scarecrow
-		name = "regulus_npcs:spawner_npc3",
+		name = "regulus_npcs:spawner_scarecrow1",
 		pos = grassland_center + vector.new(0, 1, 8),
 	},
 	{ -- Mound at fork
@@ -180,7 +180,7 @@ local special_nodes = {
 		pos = fork_in_road + vector.new(0,1,0),
 	},
 	{ -- idk guy
-		name = "regulus_npcs:spawner_npc1",
+		name = "regulus_npcs:spawner_wizard",
 		pos = npc_house + vector.new(0, 1, 0),
 	},
 	{ -- Barrel

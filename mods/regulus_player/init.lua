@@ -58,6 +58,10 @@ end)
 core.register_on_newplayer(function(player)
 	player:set_pos(vector.new(0, 30.5, 0))
 end)
+core.register_on_respawnplayer(function(player)
+	player:set_pos(vector.new(0, 30.5, 0))
+	return true
+end)
 
 
 

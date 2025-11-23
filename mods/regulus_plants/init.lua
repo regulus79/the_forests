@@ -18,7 +18,7 @@ regulus_plants.plantdefs = {
 		biomes = {"drygrassland"},
 		place_on = "regulus_nodes:dirt_with_grass2",
 		fill_ratio = 0.1,
-		composition = {},
+		composition = {staeg = 1},
 	},
 	grass3 = {
 		name = "Feyrf Grass",
@@ -82,7 +82,7 @@ regulus_plants.plantdefs = {
 		fill_ratio = 0.3,
 		scale = 2,
 		toughness = 2,
-		composition = {},
+		composition = {thrag = 1},
 	},
 	grass10 = {
 		name = "Grass",
@@ -90,7 +90,7 @@ regulus_plants.plantdefs = {
 		biomes = {"backyardforest"},
 		place_on = "regulus_nodes:dirt_with_grass4",
 		fill_ratio = 0.3,
-		composition = {},
+		composition = {rheer = 1},
 	},
 	grass11 = {
 		name = "Grass",
@@ -98,7 +98,7 @@ regulus_plants.plantdefs = {
 		biomes = {"backyardforest"},
 		place_on = "regulus_nodes:dirt_with_grass4",
 		fill_ratio = 0.2,
-		composition = {},
+		composition = {vurg = 1},
 	},
 	grass12 = {
 		name = "Reghaou Grass",
@@ -106,7 +106,7 @@ regulus_plants.plantdefs = {
 		biomes = {"redforest"},
 		place_on = "regulus_nodes:dirt_with_grass5",
 		fill_ratio = 0.1,
-		composition = {},
+		composition = {reghaou = 1},
 	},
 	grass13 = {
 		name = "Gregoara Grass",
@@ -114,7 +114,7 @@ regulus_plants.plantdefs = {
 		biomes = {"redforest"},
 		place_on = "regulus_nodes:dirt_with_grass5",
 		fill_ratio = 0.01,
-		composition = {},
+		composition = {gregoara = 1},
 	},
 	grass14 = {
 		name = "Rhe Grass",
@@ -124,7 +124,7 @@ regulus_plants.plantdefs = {
 		fill_ratio = 0.01,
 		scale = 2,
 		toughness = 2,
-		composition = {},
+		composition = {rhe = 1},
 	},
 	grass15 = {
 		name = "Grass",
@@ -132,7 +132,40 @@ regulus_plants.plantdefs = {
 		biomes = {"redforest"},
 		place_on = "regulus_nodes:dirt_with_grass5",
 		fill_ratio = 0.4,
-		composition = {},
+		composition = {thrag = 1},
+	},
+	flower1 = {
+		name = "Blue Flower",
+		type = "simple",
+		biomes = {"grassland"},
+		place_on = "regulus_nodes:dirt_with_grass1",
+		use_noise = true,
+		noise_spread = 100,
+		fill_ratio = 0.01,
+		noise_offset = -0.3,
+		composition = {affer = 1},
+	},
+	flower2 = {
+		name = "Red Flower",
+		type = "simple",
+		biomes = {"grassland"},
+		place_on = "regulus_nodes:dirt_with_grass1",
+		use_noise = true,
+		noise_spread = 100,
+		fill_ratio = 0.01,
+		noise_offset = -0.3,
+		composition = {gra = 1},
+	},
+	flower3 = {
+		name = "Yellow Flower",
+		type = "simple",
+		biomes = {"grassland"},
+		place_on = "regulus_nodes:dirt_with_grass1",
+		use_noise = true,
+		noise_spread = 100,
+		fill_ratio = 0.01,
+		noise_offset = -0.3,
+		composition = {phye = 1},
 	},
 }
 
@@ -144,7 +177,7 @@ local getPlantDescription = function(plantdef)
 	for compound, amount in pairs(plantdef.composition) do
 		total_amount = total_amount + amount
 	end
-	for compound, amount in pairs(plantdef.composition) do
+	for _, compound in pairs(regulus_vessels.get_sorted_components(plantdef.composition)) do
 		local colorVec = regulus_compounds.compounds[compound].color
 		local colorString = core.rgba(colorVec.x, colorVec.y, colorVec.z)
 		table.insert(composition, core.colorize(colorString, regulus_compounds.compounds[compound].name))
@@ -187,7 +220,7 @@ for plantid, plantdef in pairs(regulus_plants.plantdefs) do
 				param2 = flagbase + 0,
 				param2_max = flagbase + 4,
 				noise_params = plantdef.use_noise and {
-					offset = 0,
+					offset = plantdef.noise_offset or 0,
 					scale = 0.45,
 					spread = vector.new(plantdef.noise_spread, plantdef.noise_spread, plantdef.noise_spread),
 					seed = math.random(100000),

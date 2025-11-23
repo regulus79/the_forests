@@ -36,6 +36,25 @@ end
 ---
 ---
 
+-- Helper function for displaying solution components in sorted order, from most to least
+regulus_vessels.get_sorted_components = function(state)
+	local keys = {}
+	for k,v in pairs(state) do
+		table.insert(keys, k)
+	end
+	table.sort(keys, function(a,b)
+		-- If equal amounts, sort alphabetically
+		if state[a] == state[b] then
+			return a < b
+		else
+			-- Else sort by amount in solution
+			return state[a] > state[b]
+		end
+	end)
+	return keys
+end
+
+
 regulus_vessels.get_solution_color = function(state)
 	local total_color = vector.new(0,0,0)
 	local total_amount = 0
@@ -64,20 +83,20 @@ local get_param2_from_color_vec = function(vec)
 	return index
 end
 
-local colorStringFromVector = function(vec)
+regulus_vessels.colorStringFromVector = function(vec)
 	return core.rgba(vec.x, vec.y, vec.z)
 end
 
 
 local descriptionFromSolutionContents = function(solution_state)
 	local description = {}
-	for compound, amount in pairs(solution_state) do
+	for _, compound in pairs(regulus_vessels.get_sorted_components(solution_state)) do
 		local compoundName = regulus_compounds.compounds[compound].name
-		local compoundColor = colorStringFromVector(regulus_compounds.compounds[compound].color)
-		local lesserCompoundColor = colorStringFromVector((regulus_compounds.compounds[compound].color + vector.new(255,255,255)) / 2)
+		local compoundColor = regulus_vessels.colorStringFromVector(regulus_compounds.compounds[compound].color)
+		local lesserCompoundColor = regulus_vessels.colorStringFromVector((regulus_compounds.compounds[compound].color + vector.new(255,255,255)) / 2)
 		table.insert(description, string.format("%.1f %s %s",
-			amount,
-			core.colorize(compoundColor, string.rep("#", math.ceil(amount))),
+			solution_state[compound],
+			core.colorize(compoundColor, string.rep("#", math.ceil(solution_state[compound]))),
 			core.colorize(lesserCompoundColor, compoundName)
 		))
 	end

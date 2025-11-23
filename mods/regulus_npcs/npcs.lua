@@ -1,21 +1,27 @@
 
-regulus_npcs.npcs["npc1"] = {
+regulus_npcs.npcs["wizard"] = {
 	_notice_distance = 5,
 	_notice_rate = 0.5,
 	_turn_on_rightclick = true,
 	get_next_dialogue = function(self, player)
-		if not regulus_dialogue.had_dialogue(player, "npc1_idle1") then
-			return "npc1_idle1", true
+		if not regulus_dialogue.had_dialogue(player, "wizard_talk1") then
+			return "wizard_talk1", true
 		else
-			return "npc1_idle2", false
+			return "wizard_idle", false
 		end
 	end,
 }
-regulus_dialogue.dialogues["npc1_idle1"] = {
+regulus_dialogue.dialogues["wizard_talk1"] = {
 	{text = "aahahhhghghghhjlllllmm... mhmm"},
 	{text = "what are you doing"},
+	{text = "you look tired"},
+	{text = "come on in"},
+	{text = "let me give you something to drink"},
+	{text = "see that cup of green stuff?"},
+	{text = "that has some good tea in it"},
+	{text = "you should drink it"},
 }
-regulus_dialogue.dialogues["npc1_idle2"] = {
+regulus_dialogue.dialogues["wizard_idle"] = {
 	{text = "what is it"},
 	{text = "why are you talking to me"},
 }
@@ -49,19 +55,19 @@ regulus_dialogue.dialogues["npc2_idle2"] = {
 
 
 -- Scarecrow
-regulus_npcs.npcs["npc3"] = {
+regulus_npcs.npcs["scarecrow1"] = {
 	_notice_distance = 5,
 	_notice_rate = 0.5,
 	_turn_on_rightclick = true,
 	get_next_dialogue = function(self, player)
-		if not regulus_dialogue.had_dialogue(player, "scarecrow1") then
-			return "scarecrow1", true
+		if not regulus_dialogue.had_dialogue(player, "scarecrow1_talk1") then
+			return "scarecrow1_talk1", true
 		else
 			return "scarecrow1_idle1", false
 		end
 	end,
 }
-regulus_dialogue.dialogues["scarecrow1"] = {
+regulus_dialogue.dialogues["scarecrow1_talk1"] = {
 	{text = "AAAAAAAAA!!!!"},
 	{text = "you scared me\nI thought you were a crow for a moment"},
 	{text = "the crows are going to be coming soon this year and I am so scared of them"},
@@ -201,20 +207,18 @@ regulus_dialogue.dialogues["npc5_idle1"] = {
 	{text = "actually wait no I can't move"},
 	{text = "I have so many friends around here"},
 	{text = "do you want to be friends too?"},
-	{text = "let me show you all my friends!"},
-	{text = "there's that scarecrow over there"},
-	{text = "they love the wind"},
-	{text = "actually they don't like it"},
-	{text = "its complicated"},
-	{text = "then there's that other guy over there"},
-	{text = "they pour things in barrels and mix things around"},
-	{text = "and say funny words"},
-	{text = "and they eat a lot of herbs I think"},
-	{text = "i don't know"},
-	{text = "i only met them a couple times"},
-	{text = "but we're friends anyway!"},
-	{text = "so what are you doing"},
+	{text = "I wish I could walk"},
+	{text = "you can walk"},
+	{text = "you look tired"},
+	{text = "have you been walking for a long time"},
+	{text = "if I could walk, I would never get tired"},
+	{text = "I would walk forever"},
+	{text = "and visit all my friends"},
+	{text = "wait!"},
+	{text = "if you are tired you should visit my friend up there"},
+	{text = "they have a house where you can rest"},
+	{text = "tell them I said hi!!!"},
 }
 regulus_dialogue.dialogues["npc5_idle2"] = {
-	{text = "hi!"},
+	{text = "hi!!!"},
 }
