@@ -15,6 +15,16 @@ regulus_potions.potion_effects = {
 			end
 		end
 	},
+	fear = {
+		name = "Fear",
+		update = function(player, intensity, dtime)
+			if intensity > 0.3 then
+				regulus_hud.set_caption(player, "fear", core.colorize("#220000", "FEAR"))
+			else
+				regulus_hud.set_caption(player, "fear", "")
+			end
+		end,
+	},
 	speed = {
 		name = "Speed",
 		update = function(player, intensity, dtime)
@@ -45,6 +55,10 @@ regulus_potions.potion_effects = {
 -- Some compounds have special effects
 -- potions must correspond to defined compounds
 regulus_potions.potions = {
+	fear_hormone = {
+		halflife = 15,
+		effects = {sickness = 1, fear = 1},
+	},
 	ichra = {
 		halflife = 15,
 		effects = {sickness = 0.1}
@@ -132,7 +146,7 @@ core.register_on_joinplayer(function(player)
 	regulus_hud.add_hud_element(player, "potions_vignette", {
 		type = "image",
 		position = {x = 0.5, y = 0.5},
-		scale = {x = -100, y = -100},
+		scale = {x = -100, y = -101},
 		text = "regulus_vignette.png^[opacity:0",
 		z_index = -400,
 	})

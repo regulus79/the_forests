@@ -1,5 +1,8 @@
 
 
+---
+--- Grassland
+---
 
 core.register_biome({
 	name = "grassland",
@@ -7,7 +10,7 @@ core.register_biome({
 	depth_top = 1,
 	node_filler = "regulus_nodes:dirt1",
 	depth_filler = 3,
-	node_stone = "regulus_nodes:stone",
+	node_stone = "regulus_nodes:stone1",
 
 	node_water = "regulus_nodes:water_source",
 
@@ -22,7 +25,27 @@ core.register_biome({
 	nightlight = 0.2,
 })
 
+for i = 1, regulus_nodes.num_boulders do
+	core.register_decoration({
+		deco_type = "simple",
+		place_on = "regulus_nodes:dirt_with_grass1",
+		biomes = {"grassland"},
+		fill_ratio = 0.001 / regulus_nodes.num_boulders,
+		decoration = "regulus_nodes:stone1_boulder" .. i,
+		param2 = 0,
+		param2_max = 4,
+	})
+end
 
+
+
+
+
+
+
+---
+--- Dry Grassland
+---
 
 core.register_biome({
 	name = "drygrassland",
@@ -30,7 +53,7 @@ core.register_biome({
 	depth_top = 1,
 	node_filler = "regulus_nodes:dirt2",
 	depth_filler = 3,
-	node_stone = "regulus_nodes:stone",
+	node_stone = "regulus_nodes:stone3",
 
 	node_water = "regulus_nodes:water_source",
 
@@ -44,8 +67,25 @@ core.register_biome({
 	daylight = 1,
 	nightlight = 0.2,
 })
+for i = 1, regulus_nodes.num_boulders do
+	core.register_decoration({
+		deco_type = "simple",
+		place_on = "regulus_nodes:dirt_with_grass2",
+		biomes = {"drygrassland"},
+		fill_ratio = 0.001 / regulus_nodes.num_boulders,
+		decoration = "regulus_nodes:stone3_boulder" .. i,
+		param2 = 0,
+		param2_max = 4,
+	})
+end
 
 
+
+
+
+---
+--- Firefly Forest
+---
 
 core.register_biome({
 	name = "fireflyforest",
@@ -53,7 +93,7 @@ core.register_biome({
 	depth_top = 1,
 	node_filler = "regulus_nodes:dirt3",
 	depth_filler = 3,
-	node_stone = "regulus_nodes:stone",
+	node_stone = "regulus_nodes:stone2",
 
 	node_water = "regulus_nodes:water_source",
 
@@ -67,7 +107,26 @@ core.register_biome({
 	daylight = 0.5,
 	nightlight = 0.2,
 })
+for i = 1, regulus_nodes.num_boulders do
+	core.register_decoration({
+		deco_type = "simple",
+		place_on = "regulus_nodes:dirt_with_grass3",
+		biomes = {"fireflyforest"},
+		fill_ratio = 0.001 / regulus_nodes.num_boulders,
+		decoration = "regulus_nodes:stone2_boulder" .. i,
+		param2 = 0,
+		param2_max = 4,
+	})
+end
 
+
+
+
+
+
+---
+--- Backyard Forest
+---
 
 core.register_biome({
 	name = "backyardforest",
@@ -75,7 +134,7 @@ core.register_biome({
 	depth_top = 1,
 	node_filler = "regulus_nodes:dirt1",
 	depth_filler = 3,
-	node_stone = "regulus_nodes:stone",
+	node_stone = "regulus_nodes:stone4",
 
 	node_water = "regulus_nodes:water_source",
 
@@ -89,7 +148,38 @@ core.register_biome({
 	daylight = 1,
 	nightlight = 0.2,
 })
+for i = 1, regulus_nodes.num_boulders do
+	core.register_decoration({
+		deco_type = "simple",
+		place_on = "regulus_nodes:dirt_with_grass4",
+		biomes = {"backyardforest"},
+		fill_ratio = 0.001 / regulus_nodes.num_boulders,
+		decoration = "regulus_nodes:stone4_boulder" .. i,
+		param2 = 0,
+		param2_max = 4,
+	})
+end
 
+core.register_ore({
+	name = "livingstone",
+	ore_type = "scatter",
+	ore = "regulus_nodes:ore1",
+	wherein = "regulus_nodes:stone4",
+	biomes = {"backyardforest"},
+	clust_scarcity = 4*4*4,
+	clust_num_ores = 8,
+	clust_size = 3,
+})
+
+
+
+
+
+
+
+---
+--- Red Forest
+---
 
 core.register_biome({
 	name = "redforest",
@@ -97,7 +187,7 @@ core.register_biome({
 	depth_top = 1,
 	node_filler = "regulus_nodes:dirt1",
 	depth_filler = 3,
-	node_stone = "regulus_nodes:stone",
+	node_stone = "regulus_nodes:stone5",
 
 	node_water = "regulus_nodes:water_source",
 
@@ -111,3 +201,14 @@ core.register_biome({
 	daylight = 1,
 	nightlight = 0.2,
 })
+for i = 1, regulus_nodes.num_boulders do
+	core.register_decoration({
+		deco_type = "simple",
+		place_on = "regulus_nodes:dirt_with_grass5",
+		biomes = {"redforest"},
+		fill_ratio = 0.001 / regulus_nodes.num_boulders,
+		decoration = "regulus_nodes:stone5_boulder" .. i,
+		param2 = 0,
+		param2_max = 4,
+	})
+end

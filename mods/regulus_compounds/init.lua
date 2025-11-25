@@ -1,6 +1,10 @@
 regulus_compounds = {}
 
 regulus_compounds.compounds = {
+	fear_hormone = {
+		name = "Fear",
+		color = vector.new(0, 0, 0),
+	},
 	ichra = {
 		name = "Ichra",
 		color = vector.new(71, 87, 43),

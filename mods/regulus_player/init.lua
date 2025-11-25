@@ -11,7 +11,8 @@ core.override_item("", {
 		groupcaps = {
 			plant = {times = {1,2,3}, maxlevel = 3},
 			dirt = {times = {2,3,4}, maxlevel = 3},
-			wood = {times = {4,5,6}, maxlevel = 3},
+			tree = {times = {6,7,8}, maxlevel = 3},
+			wood = {times = {3,4,5}, maxlevel = 3},
 		}
 	}
 })
