@@ -41,7 +41,7 @@ regulus_potions.potion_effects = {
 			player:set_physics_override(physics_override)
 		end
 	},
-	accel = {
+	agility = {
 		name = "Agility",
 		update = function(player, intensity, dtime)
 			local physics_override = player:get_physics_override()
@@ -61,7 +61,7 @@ regulus_potions.potions = {
 	},
 	ichra = {
 		halflife = 15,
-		effects = {sickness = 0.1}
+		effects = {sickness = 1}
 	},
 	staeg = {
 		halflife = 15,
@@ -93,7 +93,7 @@ regulus_potions.potions = {
 	},
 	rheer = {
 		halflife = 15,
-		effects = {accel = 1, sickness = 0.1}
+		effects = {agility = 1, sickness = 0.1}
 	},
 	vurg = {
 		halflife = 15,
@@ -113,15 +113,15 @@ regulus_potions.potions = {
 	},
 	affer = {
 		halflife = 15,
-		effects = {sickness = 0.1}
+		effects = {sickness = 0.1, speed = 0.2}
 	},
 	gra = {
 		halflife = 15,
-		effects = {sickness = 0.1}
+		effects = {sickness = 0.1, jump = 0.2}
 	},
 	phye = {
 		halflife = 15,
-		effects = {sickness = 0.1}
+		effects = {sickness = 0.1, agility = 0.2}
 	},
 }
 
@@ -248,3 +248,6 @@ core.register_chatcommand("levels", {
 })
 
 
+
+
+dofile(core.get_modpath("regulus_potions") .. "/vessel_spawners.lua")

@@ -175,24 +175,36 @@ local special_nodes = {
 		name = "regulus_npcs:spawner_scarecrow1",
 		pos = grassland_center + vector.new(0, 1, 8),
 	},
+	{ -- Barrel of grassland speed potion near spawn
+		name = "regulus_potions:vessel_spawner_affer",
+		pos = grassland_center + vector.new(-4, 1, 8),
+	},
 	{ -- Mound at fork
 		name = "regulus_npcs:spawner_npc5",
 		pos = fork_in_road + vector.new(0,1,0),
+	},
+	{ -- Barrel of grassland jump potion near fork
+		name = "regulus_potions:vessel_spawner_gra",
+		pos = fork_in_road + vector.new(-2, 1, 0),
+	},
+	{ -- Barrel of grassland agility potion near fork
+		name = "regulus_potions:vessel_spawner_phye",
+		pos = fork_in_road + vector.new(-2, 1, 1),
 	},
 	{ -- idk guy
 		name = "regulus_npcs:spawner_wizard",
 		pos = npc_house + vector.new(0, 1, 0),
 	},
 	{ -- Barrel
-		name = "regulus_vessels:barrel1_level_0",
+		name = "regulus_vessels:barrel1_level0",
 		pos = npc_house + vector.new(5, 1, 3),
 	},
 	{ -- Barrel
-		name = "regulus_vessels:barrel2_level_0",
+		name = "regulus_vessels:barrel2_level0",
 		pos = npc_house + vector.new(4, 1, 3),
 	},
 	{ -- Barrel
-		name = "regulus_vessels:barrel3_level_0",
+		name = "regulus_vessels:barrel3_level0",
 		pos = npc_house + vector.new(3, 1, 2),
 	},
 	{ -- Rock in backyardforest

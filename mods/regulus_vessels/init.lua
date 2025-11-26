@@ -5,12 +5,14 @@ regulus_vessels = {}
 
 regulus_vessels.max_fullness_level = 10
 
+regulus_vessels.update_interval = 1
+
 
 regulus_vessels.vessels = {}
 
 
 local get_vessel_name = function(nodename)
-	local base_nodename, fullness_level = unpack(string.split(nodename, "_level_"))
+	local base_nodename, fullness_level = unpack(string.split(nodename, "_level"))
 	local _, vessel_name = unpack(string.split(base_nodename, ":"))
 	return vessel_name
 end
@@ -126,7 +128,7 @@ local updateState = function(meta, state)
 	updateDescriptionAndInfotext(meta)
 end
 
-local updateNode = function(pos, state)
+regulus_vessels.updateNode = function(pos, state)
 	updateState(core.get_meta(pos), state)
 	local ratio_full = total_amount_in_state(state) / get_vessel_capacity(core.get_node(pos).name)
 	local vessel_name = get_vessel_name(core.get_node(pos).name)
@@ -136,15 +138,15 @@ local updateNode = function(pos, state)
 	if new_level > 0 then
 		colorIndex = get_param2_from_color_vec(regulus_vessels.get_solution_color(state))
 	end
-	core.swap_node(pos, {name = "regulus_vessels:" .. vessel_name .. "_level_" .. tostring(new_level), param2 = colorIndex})
+	core.swap_node(pos, {name = "regulus_vessels:" .. vessel_name .. "_level" .. tostring(new_level), param2 = colorIndex})
 end
 
-local updateItemStack = function(itemstack, state)
+regulus_vessels.updateItemStack = function(itemstack, state)
 	updateState(itemstack:get_meta(), state)
 	local ratio_full = total_amount_in_state(state) / get_vessel_capacity(itemstack:get_name())
 	local vessel_name = get_vessel_name(itemstack:get_name())
 	local new_level = math.round(ratio_full * regulus_vessels.max_fullness_level)
-	itemstack:set_name("regulus_vessels:" .. vessel_name .. "_level_" .. tostring(new_level))
+	itemstack:set_name("regulus_vessels:" .. vessel_name .. "_level" .. tostring(new_level))
 end
 
 
@@ -179,8 +181,8 @@ local on_rightclick_vessel = function(pos, node, clicker, itemstack)
 				otherstate[compound] = amount * (1 - transfer_ratio)
 			end
 		end
-		updateNode(pos, state)
-		updateItemStack(itemstack, otherstate)
+		regulus_vessels.updateNode(pos, state)
+		regulus_vessels.updateItemStack(itemstack, otherstate)
 		return itemstack
 	end
 	--
@@ -196,7 +198,7 @@ local on_rightclick_vessel = function(pos, node, clicker, itemstack)
 				state[compound] = (state[compound] or 0) + transfer_ratio * amount
 				-- Don't care about what left over isn't added. Idk
 			end
-			updateNode(pos, state)
+			regulus_vessels.updateNode(pos, state)
 			itemstack:take_item()
 			return itemstack
 		else
@@ -217,7 +219,7 @@ local on_use_vessel = function(itemstack, user)
 	-- Drink contents
 	regulus_potions.drink_solution(user, core.deserialize(itemstack:get_meta():get_string("state")) or {})
 	-- Empty contents
-	updateItemStack(itemstack, {})
+	regulus_vessels.updateItemStack(itemstack, {})
 	return itemstack
 end
 
@@ -230,15 +232,14 @@ local on_place_vessel = function(itemstack, placer, pointed_thing)
 		return new_itemstack
 	end
 	-- Apply the state to the new node
-	updateNode(pos, itemstack_state)
+	regulus_vessels.updateNode(pos, itemstack_state)
 	return new_itemstack
 end
 
 local on_construct_vessel = function(pos)
 	local meta = core.get_meta(pos)
 	updateDescriptionAndInfotext(meta)
-	-- TODO use global constant for tick length
-	core.get_node_timer(pos):set(1, 0)
+	core.get_node_timer(pos):set(regulus_vessels.update_interval, 0)
 end
 
 
@@ -247,7 +248,7 @@ local on_timer_step_vessel = function(pos, elapsed, node, timeout)
 	local state = core.deserialize(meta:get_string("state")) or {}
 	-- Update state based on chem sim
 	-- TODO
-	updateNode(pos, state)
+	regulus_vessels.updateNode(pos, state)
 	return true
 end
 
@@ -259,7 +260,7 @@ end
 regulus_vessels.register_vessel = function(name, def)
 	regulus_vessels.vessels[name] = def
 	for level = 0, regulus_vessels.max_fullness_level do
-		core.register_node("regulus_vessels:" .. name .. "_level_" .. tostring(level), {
+		core.register_node("regulus_vessels:" .. name .. "_level" .. tostring(level), {
 			description = def.description or "Flask",
 			stack_max = 1,
 			drawtype = "nodebox",
