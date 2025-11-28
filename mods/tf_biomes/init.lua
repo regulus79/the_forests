@@ -104,7 +104,7 @@ core.register_biome({
 	horizon_color = "#322f1f",
 	fog_color = "#322f1f",
 	fog_distance = 40,
-	daylight = 0.5,
+	daylight = 0.8,
 	nightlight = 0.4,
 })
 for i = 1, tf_nodes.num_boulders do
