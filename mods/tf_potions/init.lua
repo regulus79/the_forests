@@ -25,6 +25,23 @@ tf_potions.potion_effects = {
 			end
 		end,
 	},
+	dizziness = {
+		name = "Dizziness",
+		update = function(player, intensity, dtime)
+			if intensity > 0 then
+				player:set_look_horizontal(player:get_look_horizontal() + (1 - 2*math.random()) * intensity)
+				player:set_look_vertical(player:get_look_vertical() + (1 - 2*math.random()) * intensity)
+			end
+		end
+	},
+	stumble = {
+		name = "Stumble",
+		update = function(player, intensity, dtime)
+			if intensity > 0 then
+				player:add_velocity(intensity * 5 * vector.new(1 - 2*math.random(), 1 - 2*math.random(), 1 - 2*math.random()))
+			end
+		end
+	},
 	speed = {
 		name = "Speed",
 		update = function(player, intensity, dtime)
@@ -99,11 +116,11 @@ tf_potions.potions = {
 	},
 	rheer = {
 		halflife = 15,
-		effects = {agility = 1, sickness = 0.1}
+		effects = {sickness = 2}
 	},
 	vurg = {
 		halflife = 15,
-		effects = {sickness = 0.1}
+		effects = {sickness = 0.1, jump = 0.2}
 	},
 	reghaou = {
 		halflife = 15,
@@ -123,11 +140,15 @@ tf_potions.potions = {
 	},
 	gra = {
 		halflife = 15,
-		effects = {sickness = 0.1, jump = 0.2}
+		effects = {sickness = 0.1, dizziness = 0.3}
 	},
 	phye = {
 		halflife = 15,
-		effects = {sickness = 0.1, agility = 0.2}
+		effects = {sickness = 2}
+	},
+	deem = {
+		halflife = 15,
+		effects = {sickness = 0.1, stumble = 0.3},
 	},
 	--
 	-- Ores
@@ -150,6 +171,9 @@ tf_potions.drink_solution = function(player, solution_state)
 		end
 	end
 	player:get_meta():set_string("potion_levels", core.serialize(potion_levels))
+	--!! Quests !!--
+	tf_quests.complete_quest(player, "drink_potion")
+	--!!--
 end
 
 
@@ -208,8 +232,9 @@ core.register_globalstep(function(dtime)
 			end
 			player:get_meta():set_string("potion_levels", core.serialize(potion_levels))
 			-- Apply potion effects
-			for effect, intensity in pairs(total_effects) do
-				tf_potions.potion_effects[effect].update(player, intensity, update_interval)
+			for effectid, effectdef in pairs(tf_potions.potion_effects) do
+				local intensity = total_effects[effectid] or 0
+				effectdef.update(player, intensity, update_interval)
 			end
 			-- Update vignette
 			local alpha = math.floor(math.min(255, 255 * total_amount))

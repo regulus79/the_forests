@@ -166,7 +166,7 @@ core.register_ore({
 	ore = "tf_nodes:livingstone",
 	wherein = "tf_nodes:stone4",
 	biomes = {"backyardforest"},
-	clust_scarcity = 4*4*4,
+	clust_scarcity = 2*2*2,
 	clust_num_ores = 8,
 	clust_size = 3,
 })

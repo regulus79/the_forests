@@ -26,10 +26,23 @@ tf_dialogue.dialogues["wizard_greeting"] = {
 	{text = "see that cup on the table?"},
 	{text = "that has some good potion in it"},
 	{text = "you should drink it"},
-	{text = "it will give you speed"},
 }
 tf_dialogue.dialogues["wizard_talk2"] = {
-	{text = "did you feel that?"},
+	{text = "do you feel that?"},
+	{text = "that's the " .. tf_compounds.get_compound_name("affer") .. " in it"},
+	{text = "it comes from those little blue flowers"},
+	{text = "scattered all over the place"},
+	{text = "very magical"},
+	{text = "but it's not the only special plant out there!"},
+	{text = "so many other plants have weird compounds in them"},
+	{text = "they do weird things"},
+	{text = "you should try them"},
+	{text = "but do be careful"},
+	{text = "some do nothing"},
+	{text = "and some are super deadly"},
+	{text = "so...."},
+	{text = "yeah"},
+	{text = "just stay safe!"},
 }
 tf_dialogue.dialogues["wizard_idle1"] = {
 	{text = "I love herbs"},

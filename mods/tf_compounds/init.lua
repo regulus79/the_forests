@@ -71,6 +71,10 @@ tf_compounds.compounds = {
 		name = "Phye",
 		color = vector.new(190, 200, 52),
 	},
+	deem = {
+		name = "Deem",
+		color = vector.new(255, 177, 42),
+	},
 	-- Ores
 	iron = {
 		name = "Iron",
@@ -85,3 +89,12 @@ tf_compounds.compounds = {
 		color = vector.new(57, 57, 57),
 	},
 }
+
+
+
+
+tf_compounds.get_compound_name = function(compound_id)
+	local colorVec = tf_compounds.compounds[compound_id].color
+	local colorString = core.rgba(colorVec.x, colorVec.y, colorVec.z)
+	return core.colorize(colorString, tf_compounds.compounds[compound_id].name)
+end

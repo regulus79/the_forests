@@ -167,6 +167,17 @@ tf_plants.plantdefs = {
 		noise_offset = -0.3,
 		composition = {phye = 1},
 	},
+	flower3 = {
+		name = "Orange Flower",
+		type = "simple",
+		biomes = {"backyardforest"},
+		place_on = "tf_nodes:dirt_with_grass4",
+		use_noise = true,
+		noise_spread = 100,
+		fill_ratio = 0.01,
+		noise_offset = -0.3,
+		composition = {deem = 1},
+	},
 }
 
 

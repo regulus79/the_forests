@@ -167,7 +167,7 @@ local on_rightclick_vessel = function(pos, node, clicker, itemstack)
 	--
 	-- If it's another vessel, pour it in
 	--
-	if core.get_node_group(itemstack:get_name(), "vessel") ~= 0 then
+	if core.get_item_group(itemstack:get_name(), "vessel") ~= 0 then
 		local otherstate = get_state(itemstack:get_meta()) or {}
 		local total_amount_in_other = total_amount_in_state(get_state(itemstack:get_meta()))
 		local transfer_amount = math.min(max_transfer, total_amount_in_other)
@@ -190,9 +190,9 @@ local on_rightclick_vessel = function(pos, node, clicker, itemstack)
 	-- Or if it's an ore, add its ore composition
 	--
 	local composition_to_add
-	if core.get_node_group(itemstack:get_name(), "plant") ~= 0 then
+	if core.get_item_group(itemstack:get_name(), "plant") ~= 0 then
 		composition_to_add = tf_plants.get_plant_composition(itemstack:get_name())
-	elseif core.get_node_group(itemstack:get_name(), "ore") ~= 0 then
+	elseif core.get_item_group(itemstack:get_name(), "ore") ~= 0 then
 		composition_to_add = tf_ores.get_ore_composition(itemstack:get_name())
 	end
 	if composition_to_add ~= nil then

@@ -81,8 +81,21 @@ end)
 core.register_on_respawnplayer(function(player)
 	player:set_pos(vector.new(0, 30.5, 0))
 	player:set_look_horizontal(math.pi)
+	-- Reset potion levels
+	player:get_meta():set_string("potion_levels", "")
 	return true
 end)
+
+-- On death, drop inv contents
+core.register_on_dieplayer(function(player)
+	for listname, list in pairs(player:get_inventory():get_lists()) do
+		for _, item in pairs(list) do
+			core.item_drop(item, nil, player:get_pos())
+		end
+		player:get_inventory():set_list(listname, {})
+	end
+end)
+
 
 
 
