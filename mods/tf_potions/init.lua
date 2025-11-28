@@ -232,7 +232,10 @@ tf_potions.drink_solution = function(player, solution_state)
 	end
 	player:get_meta():set_string("potion_levels", core.serialize(potion_levels))
 	--!! Quests !!--
-	tf_quests.complete_quest(player, "drink_potion")
+	-- Drinking the potion at the npc house
+	if solution_state.affer == 3 then
+		tf_quests.complete_quest(player, "drink_potion")
+	end
 	--!!--
 end
 

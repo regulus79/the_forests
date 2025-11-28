@@ -183,6 +183,18 @@ local special_nodes = {
 		name = "tf_npcs:spawner_npc5",
 		pos = fork_in_road + vector.new(0,1,0),
 	},
+	{ -- Blue flower near npc house
+		name = "tf_plants:plant_flower1",
+		pos = npc_house + vector.new(-1,1,7),
+	},
+	{ -- red flower near npc house
+		name = "tf_plants:plant_flower2",
+		pos = npc_house + vector.new(-2,1,7),
+	},
+	{ -- yellow flower near npc house
+		name = "tf_plants:plant_flower3",
+		pos = npc_house + vector.new(-4,1,4),
+	},
 	{ -- Rock in backyardforest
 		name = "tf_npcs:spawner_rock",
 		pos = backyardforest_center + vector.new(0, 1, 0),
