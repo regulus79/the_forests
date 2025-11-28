@@ -1,10 +1,12 @@
 tf_compounds = {}
 
 tf_compounds.compounds = {
+	-- Misc
 	fear_hormone = {
 		name = "Fear",
 		color = vector.new(0, 0, 0),
 	},
+	-- Plants
 	ichra = {
 		name = "Ichra",
 		color = vector.new(71, 87, 43),
@@ -68,5 +70,18 @@ tf_compounds.compounds = {
 	phye = {
 		name = "Phye",
 		color = vector.new(190, 200, 52),
+	},
+	-- Ores
+	iron = {
+		name = "Iron",
+		color = vector.new(222, 90, 25),
+	},
+	raga = {
+		name = "Raga",
+		color = vector.new(130, 190, 230),
+	},
+	coal = {
+		name = "Coal",
+		color = vector.new(57, 57, 57),
 	},
 }

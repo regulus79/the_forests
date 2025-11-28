@@ -70,9 +70,9 @@ tf_vessels.get_solution_color = function(state)
 	if total_amount == 0 then
 		return nil
 	end
-	average_color = total_color / total_amount
+	local average_color = total_color / total_amount
 	-- Normalize and rescale to proper brightness/length to fix darkening when mixing orthogonal colors
-	normalized_average_color = average_color:normalize() * (total_brightness / total_amount)
+	local normalized_average_color = average_color:normalize() * (total_brightness / total_amount)
 	return normalized_average_color
 end
 
@@ -187,14 +187,20 @@ local on_rightclick_vessel = function(pos, node, clicker, itemstack)
 	end
 	--
 	-- If it's a plant/compound, then add its composition
+	-- Or if it's an ore, add its ore composition
 	--
+	local composition_to_add
 	if core.get_node_group(itemstack:get_name(), "plant") ~= 0 then
-		local plant_composition = tf_plants.get_plant_composition(itemstack:get_name())
-		local total_in_plant_composition = total_amount_in_state(plant_composition)
-		local transfer_amount = math.min(max_transfer, total_in_plant_composition)
-		local transfer_ratio = transfer_amount / total_in_plant_composition
+		composition_to_add = tf_plants.get_plant_composition(itemstack:get_name())
+	elseif core.get_node_group(itemstack:get_name(), "ore") ~= 0 then
+		composition_to_add = tf_ores.get_ore_composition(itemstack:get_name())
+	end
+	if composition_to_add ~= nil then
+		local total_in_composition = total_amount_in_state(composition_to_add)
+		local transfer_amount = math.min(max_transfer, total_in_composition)
+		local transfer_ratio = transfer_amount / total_in_composition
 		if transfer_ratio > 0 then
-			for compound, amount in pairs(plant_composition) do
+			for compound, amount in pairs(composition_to_add) do
 				state[compound] = (state[compound] or 0) + transfer_ratio * amount
 				-- Don't care about what left over isn't added. Idk
 			end

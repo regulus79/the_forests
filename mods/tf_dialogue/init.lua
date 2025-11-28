@@ -1,8 +1,11 @@
 
 tf_dialogue = {}
 
-tf_dialogue.dialogues = {
-}
+tf_dialogue.dialogues = {}
+
+
+local active_dialogues = {}
+
 
 tf_dialogue.get_formspec_string = function(dialogue_def, index)
 	local width, height = 12, 4
@@ -17,6 +20,7 @@ tf_dialogue.get_formspec_string = function(dialogue_def, index)
 end
 
 tf_dialogue.start_dialogue = function(player, dialogue_id)
+	active_dialogues[player:get_player_name()] = dialogue_id
 	local index = 1
 	core.show_formspec(player:get_player_name(), "dialogue_" .. dialogue_id .. "_line_" .. index, tf_dialogue.get_formspec_string(tf_dialogue.dialogues[dialogue_id], index))
 end
@@ -39,6 +43,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 		local completed_dialogues = core.deserialize(player:get_meta():get_string("completed_dialogues")) or {}
 		completed_dialogues[dialogue_id] = true
 		player:get_meta():set_string("completed_dialogues", core.serialize(completed_dialogues))
+		active_dialogues[player:get_player_name()] = nil
 	end
 end)
 
@@ -50,4 +55,8 @@ tf_dialogue.had_dialogue = function(player, dialogue_id)
 	else
 		return false
 	end
+end
+
+tf_dialogue.is_dialogue_active = function(player, dialogue_id)
+	return active_dialogues[player:get_player_name()] == dialogue_id
 end

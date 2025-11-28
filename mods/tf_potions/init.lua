@@ -55,10 +55,16 @@ tf_potions.potion_effects = {
 -- Some compounds have special effects
 -- potions must correspond to defined compounds
 tf_potions.potions = {
+	--
+	-- Misc
+	--
 	fear_hormone = {
 		halflife = 15,
 		effects = {sickness = 1, fear = 1},
 	},
+	--
+	-- Plants
+	--
 	ichra = {
 		halflife = 15,
 		effects = {sickness = 1}
@@ -122,6 +128,13 @@ tf_potions.potions = {
 	phye = {
 		halflife = 15,
 		effects = {sickness = 0.1, agility = 0.2}
+	},
+	--
+	-- Ores
+	--
+	raga = {
+		halflife = 15,
+		effects = {sickness = 0.1, speed = 1}
 	},
 }
 

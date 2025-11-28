@@ -28,12 +28,12 @@ for i = 1, 5 do
 				{rarity = 1, items = {"tf_nodes:stones" .. i .. " 1"}},
 			}
 		},
-		groups = {stone = 1}
+		groups = {stone = 1, generate_stairs = 1}
 	})
 	core.register_node("tf_nodes:stone" .. i .. "_brick",{
 		description = "Stone Brick",
 		tiles = {"tf_stone" .. i .. "_brick.png"},
-		groups = {stone = 1}
+		groups = {stone = 1, generate_stairs = 1}
 	})
 	core.register_craft({
 		type = "shapeless",
@@ -71,7 +71,7 @@ for i = 1, 3 do
 	core.register_node("tf_nodes:dirt" .. i,{
 		description = "Dirt",
 		tiles = {"tf_dirt" .. i .. ".png"},
-		groups = {dirt = 2}
+		groups = {dirt = 2, generate_stairs = 1}
 	})
 end
 
@@ -89,7 +89,7 @@ for i = 1, 4 do
 		},
 		paramtype2 = "facedir",
 		on_place = core.rotate_node,
-		groups = {tree = 1}
+		groups = {tree = 1, generate_stairs = 1}
 	})
 	core.register_craft({
 		type = "shapeless",
@@ -102,7 +102,7 @@ for i = 1, 4 do
 	core.register_node("tf_nodes:wood" .. i,{
 		description = "Wood",
 		tiles = {"tf_wood" .. i .. ".png"},
-		groups = {wood = 1}
+		groups = {wood = 1, generate_stairs = 1}
 	})
 	core.register_craft({
 		type = "shapeless",
@@ -130,6 +130,18 @@ core.register_node("tf_nodes:sand",{
 	tiles = {"tf_sand1.png"},
 	groups = {dirt = 1}
 })
+
+core.register_node("tf_nodes:glass",{
+	description = "Glass",
+	tiles = {"tf_glass.png"},
+	use_texture_alpha = "blend",
+	drawtype = "glasslike",
+	paramtype = "light",
+	groups = {glass = 1, generate_stairs = 1}
+})
+
+
+
 
 
 core.register_node("tf_nodes:path",{
@@ -228,9 +240,80 @@ for i = 1,1 do
 end
 
 
+-- should this go in another file? in ores? idk
+core.register_node("tf_nodes:livingstone", {
+	description = "Living Stone",
+	tiles = {"tf_stone4.png^tf_livingstone.png"},
+	groups = {stone = 1},
+	on_dig = function(pos, node, digger)
+		local potion_levels = core.deserialize(digger:get_meta():get_string("potion_levels"))
+		potion_levels["fear_hormone"] = (potion_levels["fear_hormone"] or 0) + 1
+		digger:get_meta():set_string("potion_levels", core.serialize(potion_levels))
+		return core.node_dig(pos, node, digger)
+	end,
+})
+
+
+
+core.register_node("tf_nodes:torch", {
+	description = "Torch",
+	drawtype = "torchlike",
+	tiles = {
+		{
+			name = "tf_torch.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 1.2,
+			},
+		},
+		{
+			name = "tf_torch_ceiling.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 1.2,
+			},
+		},
+		{
+			name = "tf_torch_wall.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 1.2,
+			},
+		},
+	},
+	inventory_image = "tf_torch.png^[verticalframe:4:1",
+	wield_image = "tf_torch.png^[verticalframe:4:1",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	light_source = 10,
+	walkable = false,
+	selection_box = {
+		type = "wallmounted",
+		wall_top = {-0.2, -0.1, -0.2, 0.2, 0.5, 0.2},
+		wall_bottom = {-0.2, -0.5, -0.2, 0.2, 0.1, 0.2},
+		wall_side = {-0.5, -0.4, -0.2, 0.0, 0.2, 0.2},
+	},
+	buildable_to = true,
+	groups = {dig_immediate = 3, fire = 1},
+})
+core.register_craft({
+	type = "shaped",
+	output = "tf_nodes:torch 4",
+	recipe = {
+		{"group:coal"},
+		{"group:stick"},
+	},
+})
+
 
 
 
 dofile(core.get_modpath("tf_nodes") .. "/craftitems.lua")
-dofile(core.get_modpath("tf_nodes") .. "/ores.lua")
 dofile(core.get_modpath("tf_nodes") .. "/tools.lua")
+dofile(core.get_modpath("tf_nodes") .. "/stairs.lua")

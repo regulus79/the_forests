@@ -163,7 +163,7 @@ end
 core.register_ore({
 	name = "livingstone",
 	ore_type = "scatter",
-	ore = "tf_nodes:ore1",
+	ore = "tf_nodes:livingstone",
 	wherein = "tf_nodes:stone4",
 	biomes = {"backyardforest"},
 	clust_scarcity = 4*4*4,

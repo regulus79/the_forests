@@ -175,37 +175,13 @@ local special_nodes = {
 		name = "tf_npcs:spawner_scarecrow1",
 		pos = grassland_center + vector.new(0, 1, 8),
 	},
-	{ -- Barrel of grassland speed potion near spawn
-		name = "tf_potions:vessel_spawner_affer",
+	{ -- Empty barrel near spawn
+		name = "tf_potions:vessel_spawner_barrel2_empty",
 		pos = grassland_center + vector.new(-4, 1, 8),
 	},
 	{ -- Mound at fork
 		name = "tf_npcs:spawner_npc5",
 		pos = fork_in_road + vector.new(0,1,0),
-	},
-	{ -- Barrel of grassland jump potion near fork
-		name = "tf_potions:vessel_spawner_gra",
-		pos = fork_in_road + vector.new(-2, 1, 0),
-	},
-	{ -- Barrel of grassland agility potion near fork
-		name = "tf_potions:vessel_spawner_phye",
-		pos = fork_in_road + vector.new(-2, 1, 1),
-	},
-	{ -- idk guy
-		name = "tf_npcs:spawner_wizard",
-		pos = npc_house + vector.new(0, 1, 0),
-	},
-	{ -- Barrel
-		name = "tf_vessels:barrel1_level0",
-		pos = npc_house + vector.new(5, 1, 3),
-	},
-	{ -- Barrel
-		name = "tf_vessels:barrel2_level0",
-		pos = npc_house + vector.new(4, 1, 3),
-	},
-	{ -- Barrel
-		name = "tf_vessels:barrel3_level0",
-		pos = npc_house + vector.new(3, 1, 2),
 	},
 	{ -- Rock in backyardforest
 		name = "tf_npcs:spawner_rock",
@@ -224,7 +200,18 @@ local special_nodes = {
 
 -- Schematics to be spawned at specific locations
 map_parameters.schematics = {
-	-- Some barrels near spawn
+	-- Wizard's house
+	{
+		pos = npc_house + vector.new(2, 1, -5),
+		-- Just an upper-bound guess at how large the schematic is. This is used to determine whether it might overlap with the mapblock being generated.
+		approx_size = 25,
+		schematic = core.get_modpath("rpgmapgen_settings") .. "/schems/house1_v3.mts",
+		-- All the flags and options just like normal schematics
+		rotation = "0",
+		replacements = {},
+		force_placement = true,
+		flags = "place_center_x,place_center_z",
+	}
 }
 -- Algorithmically populate it based on the npc spawner list
 for _, special_node in pairs(special_nodes) do

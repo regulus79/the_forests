@@ -4,18 +4,36 @@ local map_parameters = dofile(minetest.get_modpath("rpgmapgen_settings") .. "/ma
 
 
 
-core.override_item("", {
-	wield_image = "tf_hand.png",
-	wield_scale = vector.new(1,1,2),
-	tool_capabilities = {
-		groupcaps = {
-			plant = {times = {1,2,3}, maxlevel = 3},
-			dirt = {times = {2,3,4}, maxlevel = 3},
-			tree = {times = {6,7,8}, maxlevel = 3},
-			wood = {times = {3,4,5}, maxlevel = 3},
+if not core.is_creative_enabled() then
+	core.override_item("", {
+		wield_image = "tf_hand.png",
+		wield_scale = vector.new(1,1,2),
+		tool_capabilities = {
+			groupcaps = {
+				plant = {times = {1,2,3}, maxlevel = 3},
+				dirt = {times = {2,3,4}, maxlevel = 3},
+				tree = {times = {6,7,8}, maxlevel = 3},
+				wood = {times = {3,4,5}, maxlevel = 3},
+				glass = {times = {2,3,4}, maxlevel = 3},
+			}
 		}
-	}
-})
+	})
+else
+	core.override_item("", {
+		wield_image = "tf_hand.png",
+		wield_scale = vector.new(1,1,2),
+		tool_capabilities = {
+			groupcaps = {
+				plant = {times = {0.85}, maxlevel = 3},
+				dirt = {times = {0.85}, maxlevel = 3},
+				tree = {times = {0.85}, maxlevel = 3},
+				wood = {times = {0.85}, maxlevel = 3},
+				stone = {times = {0.85}, maxlevel = 3},
+				glass = {times = {0.85}, maxlevel = 3},
+			}
+		}
+	})
+end
 
 
 

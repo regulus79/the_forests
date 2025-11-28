@@ -4,26 +4,42 @@ tf_npcs.npcs["wizard"] = {
 	_notice_rate = 0.5,
 	_turn_on_rightclick = true,
 	get_next_dialogue = function(self, player)
-		if not tf_dialogue.had_dialogue(player, "wizard_talk1") then
-			return "wizard_talk1", true
-		else
-			return "wizard_idle", false
+		local default_dialogue = "wizard_idle" .. math.random(1,3)
+		if not tf_dialogue.had_dialogue(player, "wizard_greeting") then
+			return "wizard_greeting", true
 		end
+		if not tf_quests.completed_quest(player, "drink_potion") then
+			return default_dialogue, false
+		end
+		if not tf_dialogue.had_dialogue(player, "wizard_talk2") then
+			return "wizard_talk2", true
+		end
+		return default_dialogue, false
 	end,
 }
-tf_dialogue.dialogues["wizard_talk1"] = {
-	{text = "aahahhhghghghhjlllllmm... mhmm"},
-	{text = "what are you doing"},
+tf_dialogue.dialogues["wizard_greeting"] = {
+	{text = "greetings there, my good mate!"},
+	{text = "what are you doing?"},
 	{text = "you look tired"},
 	{text = "come on in"},
 	{text = "let me give you something to drink"},
-	{text = "see that cup of green stuff?"},
-	{text = "that has some good tea in it"},
+	{text = "see that cup on the table?"},
+	{text = "that has some good potion in it"},
 	{text = "you should drink it"},
+	{text = "it will give you speed"},
 }
-tf_dialogue.dialogues["wizard_idle"] = {
-	{text = "what is it"},
-	{text = "why are you talking to me"},
+tf_dialogue.dialogues["wizard_talk2"] = {
+	{text = "did you feel that?"},
+}
+tf_dialogue.dialogues["wizard_idle1"] = {
+	{text = "I love herbs"},
+}
+tf_dialogue.dialogues["wizard_idle2"] = {
+	{text = "did you know"},
+	{text = "herbs have magical powers"},
+}
+tf_dialogue.dialogues["wizard_idle3"] = {
+	{text = "herbs are awesome"},
 }
 
 

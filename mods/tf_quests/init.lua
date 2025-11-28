@@ -26,3 +26,8 @@ tf_quests.finish_quest = function(player, questid)
 	completed_quests[questid] = true
 	player:get_meta():set_string("completed_quests", core.serialize(completed_quests))
 end
+
+tf_quests.completed_quest = function(player, questid)
+	local completed_quests = core.deserialize(player:get_meta():get_string("completed_quests")) or {}
+	return completed_quests[questid] ~= nil
+end

@@ -3,11 +3,15 @@
 local pickaxe_types = {
 	wood = {
 		name = "Wooden",
-		groupcaps = {times = {2,3,4}, uses = 10, maxlevel = 1},
+		groupcaps = {times = {3}, uses = 10, maxlevel = 1},
 	},
 	stone = {
 		name = "Stone",
-		groupcaps = {times = {1,2,3}, uses = 10, maxlevel = 2},
+		groupcaps = {times = {2,3,4}, uses = 10, maxlevel = 2},
+	},
+	iron = {
+		name = "iron",
+		groupcaps = {times = {1,2,3}, uses = 10, maxlevel = 3},
 	},
 }
 

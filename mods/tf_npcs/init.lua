@@ -79,7 +79,10 @@ for name, npcdef in pairs(tf_npcs.npcs) do
 			local info_icon_visible = false
 			for _, player in pairs(core.get_connected_players()) do
 				local next_dialogue_id, show_info_icon = self.get_next_dialogue(self, player)
-				info_icon_visible = info_icon_visible or show_info_icon
+				-- Don't show if the dialogue is in progress
+				if not tf_dialogue.is_dialogue_active(player, next_dialogue_id) then
+					info_icon_visible = info_icon_visible or show_info_icon
+				end
 			end
 			local infoicon = self.object:get_children()[1]
 			local props = infoicon:get_properties()
@@ -107,15 +110,17 @@ for name, npcdef in pairs(tf_npcs.npcs) do
 		description = "Spawner for " .. name,
 		drawtype = "airlike",
 	})
-	core.register_abm({
-		label = "Spawn " .. name,
-		nodenames = {"tf_npcs:spawner_" .. name},
-		interval = 1,
-		chance = 1,
-		action = function(pos)
-			core.add_entity(pos + vector.new(0, 0.5, 0), "tf_npcs:" .. name)
-			core.set_node(pos, {name = "air"})
-		end
-	})
+	if not core.is_creative_enabled() then
+		core.register_abm({
+			label = "Spawn " .. name,
+			nodenames = {"tf_npcs:spawner_" .. name},
+			interval = 1,
+			chance = 1,
+			action = function(pos)
+				core.add_entity(pos + vector.new(0, 0.5, 0), "tf_npcs:" .. name)
+				core.set_node(pos, {name = "air"})
+			end
+		})
+	end
 end
 
