@@ -99,14 +99,24 @@ end)
 
 
 
-local update_timer = 0
-local update_interval = 2
+local update_timer_sky = 0
+local update_interval_sky = 2
+local update_timer_health = 0
+local update_interval_health = 10
 core.register_globalstep(function(dtime)
-	update_timer = update_timer + dtime
-	if update_timer > update_interval then
-		update_timer = 0
+	update_timer_sky = update_timer_sky + dtime
+	if update_timer_sky > update_interval_sky then
+		update_timer_sky = 0
 		for _, player in pairs(core.get_connected_players()) do
 			update_biome_sky(player)
+		end
+	end
+
+	update_timer_health = update_timer_health + dtime
+	if update_timer_health > update_interval_health then
+		update_timer_health = 0
+		for _, player in pairs(core.get_connected_players()) do
+			player:set_hp(player:get_hp() + 1, "set_hp")
 		end
 	end
 end)
