@@ -19,22 +19,22 @@ map_parameters.noiseamps = {30, 10, 5, 1}
 -- General map height, before any noise or flat areas are added
 -- Useful for adding a mountain range or ocean at a specific location on the map
 map_parameters.map_height = function(x,z)
-	local south_river = -math.exp(-((z - -250)/50)^2) * 30
+	local south_river = -math.exp(-((z - -250)/50)^2) * 40
 	local north_mountain = math.exp(-((z - 1100)/200)^2) * 200
-	return 30 + south_river + north_mountain
+	return 40 + south_river + north_mountain
 end
 
 
 
 --- Helper variables
-local grassland_center = vector.new(0,30,0)
-local fork_in_road = vector.new(0,30,150)
-local npc_house = vector.new(100,30,175)
-local backyardforest_center = vector.new(0,30,500)
-local drygrassland_center = vector.new(600,30,700)
-local redforest_center = vector.new(400,30,500)
-local in_front_of_fireflyforest = vector.new(700,30,700)
-local fireflyforest_center = vector.new(900,30,700)
+local grassland_center = vector.new(0,40,0)
+local fork_in_road = vector.new(0,40,150)
+local npc_house = vector.new(100,40,175)
+local backyardforest_center = vector.new(0,40,500)
+local drygrassland_center = vector.new(600,40,700)
+local redforest_center = vector.new(400,40,500)
+local in_front_of_fireflyforest = vector.new(700,40,700)
+local fireflyforest_center = vector.new(900,40,700)
 
 
 

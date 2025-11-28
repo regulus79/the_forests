@@ -75,11 +75,11 @@ end)
 
 --Spawnpos
 core.register_on_newplayer(function(player)
-	player:set_pos(vector.new(0, 30.5, 0))
+	player:set_pos(vector.new(0, 40.5, 0))
 	player:set_look_horizontal(math.pi)
 end)
 core.register_on_respawnplayer(function(player)
-	player:set_pos(vector.new(0, 30.5, 0))
+	player:set_pos(vector.new(0, 40.5, 0))
 	player:set_look_horizontal(math.pi)
 	-- Reset potion levels
 	player:get_meta():set_string("potion_levels", "")
