@@ -61,7 +61,7 @@ for i = 1, 5 do
 			}
 		})
 	end
-	math.randomseed()
+	math.randomseed(os.time())
 end
 
 
